@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //获取地图控件引用
         mMapView = (MapView) findViewById(R.id.bmapView);
-
+        bdMap= mMapView.getMap();
     }
     @Override
     protected void onDestroy() {
