@@ -1,15 +1,12 @@
 package com.example.xiaolanyun.caraddress.utils;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Build;
-import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.example.xiaolanyun.caraddress.R;
 
 /**
  * AUTHOR: Dream
@@ -25,11 +22,37 @@ public class ViewUtils {
      * @param color 颜色值
      */
     public static void setStatusBar(Activity activity,int color){
-        ViewGroup contentView = activity.findViewById(android.R.id.content);
-        View statusBar = new View(activity);
-        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,getStatusBarHeight(activity));
-        statusBar.setBackgroundColor(color);
-        contentView.addView(statusBar,layoutParams);
+        Window window = activity.getWindow();
+        if(Build.VERSION.SDK_INT<Build.VERSION_CODES.LOLLIPOP){
+            //设置一个半透明的状态栏
+            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+            //创建一个和状态栏等大的View用于占位
+            ViewGroup contentView = activity.findViewById(android.R.id.content);
+            View statusBar = new View(activity);
+            ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,getStatusBarHeight(activity));
+
+            //将此占位View的颜色设置为和状态栏相同
+            statusBar.setBackgroundColor(color);
+
+            //在布局顶端添加占位View
+            contentView.addView(statusBar,layoutParams);
+        }else{
+
+            //5.0过后可以直接设置沉浸式状态栏
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+            //设置状态栏颜色
+            window.setStatusBarColor(color);
+
+            //6.0设置状态栏的图标颜色配合toolbar
+            if(Build.VERSION.SDK_INT>Build.VERSION_CODES.M){
+                window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            }
+        }
+
+
 
     }
 

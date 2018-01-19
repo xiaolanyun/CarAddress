@@ -1,13 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:background="@color/toolBar"
+    android:elevation="@dimen/common_elevation">
 
-    <View
-        android:id="@+id/placeHolderBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+    <ImageButton
+        android:id="@+id/title_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:src="@drawable/toolbar_back"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="@dimen/common_margin"/>
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/title_text"
+        android:textColor="@android:color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Title"
+        android:textSize="@dimen/title_text"/>
+
+    <ImageButton
+        android:id="@+id/title_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:src="@drawable/toolbar_more"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/common_margin"/>
+
+</RelativeLayout>
